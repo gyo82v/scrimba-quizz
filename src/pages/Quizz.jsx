@@ -1,5 +1,6 @@
-import {useState, useEffect} from "react"
+import {useState} from "react"
 import {useLoaderData} from "react-router-dom"
+import Question from "../components/Question"
 
 export const loader = async () => {
     const res = await fetch("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple")
@@ -9,10 +10,14 @@ export const loader = async () => {
 }
 
 export default function Quizz(){
-    const container = `flex flex-col items-center p-4 border border-red-500`
-    const section1 = `flex flex-col items-center border border-green-500 w-11/12`
-    const section2 = `border border-violet-500 w-full`
-    const section3 = `border border-yellow-500`
+    const [showResults, setShowResults] = useState(false)
+    const [userAnswers, setUserAnswers] = useState({})
+
+
+    const container = `flex flex-col items-center p-4 `
+    const section1 = `flex flex-col items-center  w-11/12`
+    const section2 = ` w-full flex flex-col gap-5 w-full`
+    const section3 = ``
     const btn = `px-4 py-2 rounded-lg shadow-lg shadow-slate-700/30 text-lg font-bold
                  bg-gradient-to-br from-slate-600 to-slate-400 text-slate-100
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
@@ -22,13 +27,9 @@ export default function Quizz(){
     console.log("questions: ", questions)
 
     const questionsArr = questions.map(q => (
-        <section key={q.question}>
-            <h2>{q.question}</h2>
-        </section>
+        <Question key={q.question} {...q} />
     ))
 
-    console.log("questions array: ", questionsArr)
-    
     return(
         <main className={container}>
             <section className={section1}>
