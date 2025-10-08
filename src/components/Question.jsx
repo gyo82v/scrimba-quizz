@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function Question({question, correct_answer, incorrect_answers}){
+export default function Question({question, correct_answer, incorrect_answers, index, onSelect}){
     const container = `text-slate-600 w-full flex flex-col gap-2 shadow-lg bg-slate-100 
                        p-3`
     const h1 = `font-bold text-lg`
@@ -18,6 +18,7 @@ export default function Question({question, correct_answer, incorrect_answers}){
         if(isLocked) return
         setSelectedAnswer(answer)
         setIsLocked(true)
+        onSelect?.(index, answer)
     }
 
     function shuffleArray(array) {

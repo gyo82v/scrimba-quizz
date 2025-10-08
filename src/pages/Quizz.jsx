@@ -11,9 +11,7 @@ export const loader = async () => {
 
 export default function Quizz(){
     const [showResults, setShowResults] = useState(false)
-    const [userAnswers, setUserAnswers] = useState({})
-
-
+  
     const container = `flex flex-col items-center p-4 `
     const section1 = `flex flex-col items-center  w-11/12`
     const section2 = ` w-full flex flex-col gap-5 w-full`
@@ -24,10 +22,26 @@ export default function Quizz(){
                  hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-400 hover:to-slate-600`
     
     const questions = useLoaderData()
-    console.log("questions: ", questions)
+    const [userAnswers, setUserAnswers] = useState({})
 
-    const questionsArr = questions.map(q => (
-        <Question key={q.question} {...q} />
+    const handleAnswers = (index, answer) => {
+        setUserAnswers(a => ({...a, [index] : answer}))
+    }
+
+    const allAnswered = Object.keys(userAnswers).length === questions.length
+
+    const handleCheckAnswers = () => {
+        let score = 0
+        for(let i = 0; i < questions.length; i++){
+            const userAns = userAnswers[i]
+            const correct = questions[i].correct_answer
+            if(userAns === correct) score += 1
+        }
+        console.log(`Score: ${score}/${questions.length}`)
+    }
+  
+    const questionsArr = questions.map((q, i) => (
+        <Question key={i} index={i} {...q} onSelect={handleAnswers} />
     ))
 
     return(
@@ -37,7 +51,14 @@ export default function Quizz(){
                     {questionsArr}
                 </section>
                 <section className={section3}>
-                    <button className={btn}>Check answers</button>
+                    <button 
+                      onClick={handleCheckAnswers} 
+                      className={btn} 
+                      disabled={!allAnswered}
+                      aria-disabled={!allAnswered}
+                    >
+                        Check answers
+                    </button>
                 </section>
             </section>
         </main>
