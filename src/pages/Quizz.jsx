@@ -11,10 +11,12 @@ export const loader = async () => {
 
 export default function Quizz(){
     const [showResults, setShowResults] = useState(false)
+
+    const flex = `flex flex-col`
   
-    const container = `flex flex-col items-center p-4 `
-    const section1 = `flex flex-col items-center  w-11/12`
-    const section2 = ` w-full flex flex-col gap-5 w-full`
+    const container = `items-center p-4 `
+    const section1 = ` items-center  w-11/12`
+    const section2 = ` w-full gap-5 w-full`
     const section3 = `mt-4`
     const btn = `px-4 py-2 rounded-lg shadow-lg shadow-slate-700/30 text-lg font-bold
                  bg-gradient-to-br from-slate-600 to-slate-400 text-slate-100
@@ -45,9 +47,9 @@ export default function Quizz(){
     ))
 
     return(
-        <main className={container}>
-            <section className={section1}>
-                <section className={section2}>
+        <main className={`${flex} ${container}`}>
+            <section className={`${flex} ${section1}`}>
+                <section className={`${flex} ${section2}`}>
                     {questionsArr}
                 </section>
                 <section className={section3}>
