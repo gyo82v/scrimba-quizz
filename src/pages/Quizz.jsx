@@ -17,7 +17,6 @@ export default function Quizz(){
     const container = `items-center p-4 `
     const section1 = ` items-center  w-11/12`
     const section2 = ` w-full gap-5 w-full`
-    const section3 = `mt-4`
     const btn = `px-4 py-2 rounded-lg shadow-lg shadow-slate-700/30 text-lg font-bold
                  bg-gradient-to-br from-slate-600 to-slate-400 text-slate-100
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
@@ -52,7 +51,7 @@ export default function Quizz(){
                 <section className={`${flex} ${section2}`}>
                     {questionsArr}
                 </section>
-                <section className={section3}>
+                <section className="mt-4">
                     <button 
                       onClick={handleCheckAnswers} 
                       className={btn} 
