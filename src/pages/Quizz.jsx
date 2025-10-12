@@ -1,5 +1,6 @@
 import {useState} from "react"
 import {useLoaderData, useRevalidator} from "react-router-dom"
+import he from "he"
 import Question from "../components/Question"
 
 export const loader = async () => {
@@ -39,7 +40,7 @@ export default function Quizz(){
         let score = 0
         for(let i = 0; i < questions.length; i++){
             const userAns = userAnswers[i]
-            const correct = questions[i].correct_answer
+            const correct = he.decode(questions[i].correct_answer)
             if(userAns === correct) score += 1
         }
         setShowResults(true)
@@ -55,7 +56,7 @@ export default function Quizz(){
     }
   
     const questionsArr = questions.map((q, i) => (
-        <Question key={i} index={i} {...q} onSelect={handleAnswers} />
+        <Question key={i} index={i} {...q} onSelect={handleAnswers} showResults={showResults} />
     ))
 
     return(

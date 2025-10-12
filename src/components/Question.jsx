@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react"
 import he from "he"
 
-export default function Question({question, correct_answer, incorrect_answers, index, onSelect}){
+export default function Question({question, correct_answer, incorrect_answers, index, onSelect, showResults}){
     const container = `text-slate-600 w-full flex flex-col gap-2 shadow-lg bg-slate-100 
                        p-3`
     const h1 = `font-bold text-lg`
@@ -11,6 +11,9 @@ export default function Question({question, correct_answer, incorrect_answers, i
                  font-semibold 
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
                  hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-200 hover:to-slate-300 `
+        
+    const decodedCorrect = useMemo(() => he.decode(correct_answer), [correct_answer])
+    const decodedQuestion = useMemo(() => he.decode(question), [question])
 
     const shuffledAnswers = useMemo(() => {
       return shuffleArray([...incorrect_answers, correct_answer].map(a => he.decode(a)))
@@ -25,7 +28,7 @@ export default function Question({question, correct_answer, incorrect_answers, i
     }, [question, correct_answer, incorrect_answers])
 
     const handleSelect = answer => {
-        if(isLocked) return
+        if(isLocked || showResults) return
         setSelectedAnswer(answer)
         setIsLocked(true)
         onSelect?.(index, answer)
@@ -42,15 +45,28 @@ export default function Question({question, correct_answer, incorrect_answers, i
 
     const answerArray = shuffledAnswers.map((a, i) => {
         const isSelected = selectedAnswer === a 
-        const conditional = isSelected ? "from-rose-300 to-rose-200" :
+        let conditional = isSelected ? "from-rose-300 to-rose-200" :
                                          "from-slate-300 to-slate-200"
+
+        if (showResults) {
+            if (a === decodedCorrect && selectedAnswer !== decodedCorrect) {
+              // correct answer that user missed -> green
+              conditional = "from-green-300 to-green-200"
+            } else if (isSelected && a !== decodedCorrect) {
+              // selected but wrong -> keep red-ish (show user their wrong pick)
+              conditional = "from-rose-300 to-rose-200"
+            } else {
+              // otherwise remain neutral
+              conditional = "from-slate-300 to-slate-200"
+            }
+          }
 
         return(
             <button 
-          key={i} 
+          key={`${a}-${i}`} 
           className={`${btn} ${conditional}`} 
-          disabled={isLocked}
-          aria-disabled={isLocked}
+          disabled={isLocked || showResults}
+          aria-disabled={isLocked || showResults}
           aria-pressed={selectedAnswer === a}
           onClick={() => handleSelect(a)}
         >
@@ -63,7 +79,7 @@ export default function Question({question, correct_answer, incorrect_answers, i
 
     return(
         <section className={container}>
-            <h1 className={h1}>{question}</h1>
+            <h1 className={h1}>{decodedQuestion}</h1>
             <section className={section}>
                 {answerArray}
             </section>
