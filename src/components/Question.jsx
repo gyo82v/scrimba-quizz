@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 
 export default function Question({question, correct_answer, incorrect_answers, index, onSelect}){
     const container = `text-slate-600 w-full flex flex-col gap-2 shadow-lg bg-slate-100 
@@ -10,9 +10,18 @@ export default function Question({question, correct_answer, incorrect_answers, i
                  font-semibold 
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
                  hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-200 hover:to-slate-300 `
-    const [shuffledAnswers] = useState(() => shuffleArray([...incorrect_answers, correct_answer]))
+
+    const shuffledAnswers = useMemo(() => {
+      return shuffleArray([...incorrect_answers, correct_answer])
+    },[question, incorrect_answers, correct_answer])
+
     const [selectedAnswer, setSelectedAnswer] = useState(null)
     const [isLocked, setIsLocked] = useState(false)
+
+    useEffect(() => {
+      setSelectedAnswer(null)
+      setIsLocked(false)
+    }, [question, correct_answer, incorrect_answers])
 
     const handleSelect = answer => {
         if(isLocked) return

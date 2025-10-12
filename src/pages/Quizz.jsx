@@ -1,5 +1,5 @@
 import {useState} from "react"
-import {useLoaderData} from "react-router-dom"
+import {useLoaderData, useRevalidator} from "react-router-dom"
 import Question from "../components/Question"
 
 export const loader = async () => {
@@ -11,6 +11,11 @@ export const loader = async () => {
 
 export default function Quizz(){
     const [showResults, setShowResults] = useState(false)
+    const [score, setScore] = useState(0)
+    const [userAnswers, setUserAnswers] = useState({})
+    const [reloadKey, setReloadKey] = useState(0)
+    const questions = useLoaderData()
+    const revalidator = useRevalidator()
 
     const flex = `flex flex-col`
   
@@ -22,9 +27,6 @@ export default function Quizz(){
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
                  hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-400 hover:to-slate-600`
     
-    const questions = useLoaderData()
-    const [userAnswers, setUserAnswers] = useState({})
-
     const handleAnswers = (index, answer) => {
         setUserAnswers(a => ({...a, [index] : answer}))
     }
@@ -38,7 +40,17 @@ export default function Quizz(){
             const correct = questions[i].correct_answer
             if(userAns === correct) score += 1
         }
+        setShowResults(true)
+        setScore(score)
         console.log(`Score: ${score}/${questions.length}`)
+    }
+
+    const handleNewGame = async () => {
+        setShowResults(false)
+        setScore(0)
+        setUserAnswers({})
+        await revalidator.revalidate()
+        //setReloadKey((k) => k + 1)
     }
   
     const questionsArr = questions.map((q, i) => (
@@ -48,18 +60,29 @@ export default function Quizz(){
     return(
         <main className={`${flex} ${container}`}>
             <section className={`${flex} ${section1}`}>
-                <section className={`${flex} ${section2}`}>
+                <section key={reloadKey} className={`${flex} ${section2}`}>
                     {questionsArr}
                 </section>
                 <section className="mt-4">
+                  {showResults ? 
+                    <>
+                      <p>{`Your Score: ${score}/5`}</p>
+                      <button
+                        className={btn}
+                        onClick={handleNewGame}
+                      >
+                          New Quizz
+                      </button>
+                    </> :
                     <button 
                       onClick={handleCheckAnswers} 
                       className={btn} 
                       disabled={!allAnswered}
                       aria-disabled={!allAnswered}
                     >
-                        Check answers
+                      Check answers
                     </button>
+                  }
                 </section>
             </section>
         </main>
