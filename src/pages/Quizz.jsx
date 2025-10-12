@@ -25,6 +25,9 @@ export default function Quizz(){
                  bg-gradient-to-br from-slate-600 to-slate-400 text-slate-100
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
                  hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-400 hover:to-slate-600`
+    const result = `flex items-center justify-between w-full
+                    p-4 rounded-lg shadow-lg shadow-slate-700/30
+                    bg-gradient-to-br from-slate-200 to-slate-100`
     
     const handleAnswers = (index, answer) => {
         setUserAnswers(a => ({...a, [index] : answer}))
@@ -61,20 +64,20 @@ export default function Quizz(){
                 <section className={`${flex} ${section2}`}>
                     {questionsArr}
                 </section>
-                <section className="mt-4">
+                <section className="mt-10 flex items-center justify-center  w-full">
                   {showResults ? 
-                    <>
-                      <p>{`Your Score: ${score}/5`}</p>
+                    <div className={result}>
+                      <p className="font-bold text-xl  text-slate-700">{`Your Score: ${score}/5`}</p>
                       <button
                         className={btn}
                         onClick={handleNewGame}
                       >
                           New Quizz
                       </button>
-                    </> :
+                    </div> :
                     <button 
                       onClick={handleCheckAnswers} 
-                      className={btn} 
+                      className={`${btn} mx-auto`} 
                       disabled={!allAnswered}
                       aria-disabled={!allAnswered}
                     >
