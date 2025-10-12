@@ -13,7 +13,6 @@ export default function Quizz(){
     const [showResults, setShowResults] = useState(false)
     const [score, setScore] = useState(0)
     const [userAnswers, setUserAnswers] = useState({})
-    const [reloadKey, setReloadKey] = useState(0)
     const questions = useLoaderData()
     const revalidator = useRevalidator()
 
@@ -50,7 +49,6 @@ export default function Quizz(){
         setScore(0)
         setUserAnswers({})
         await revalidator.revalidate()
-        //setReloadKey((k) => k + 1)
     }
   
     const questionsArr = questions.map((q, i) => (
@@ -60,7 +58,7 @@ export default function Quizz(){
     return(
         <main className={`${flex} ${container}`}>
             <section className={`${flex} ${section1}`}>
-                <section key={reloadKey} className={`${flex} ${section2}`}>
+                <section className={`${flex} ${section2}`}>
                     {questionsArr}
                 </section>
                 <section className="mt-4">

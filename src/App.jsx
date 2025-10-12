@@ -14,7 +14,7 @@ function App() {
  
   return (
     <div className="flex flex-col min-h-screen">
-      <RouterProvider router={router} />
+      <RouterProvider router={router} hydrateFallbackElement={<div aria-hidden="true" />} />
     </div>
   )
 }
