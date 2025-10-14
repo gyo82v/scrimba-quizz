@@ -19,9 +19,6 @@ export default function Quizz(){
 
     const flex = `flex flex-col`
   
-    const container = `items-center p-4 `
-    const section1 = ` items-center  w-11/12`
-    const section2 = ` w-full gap-5 w-full`
     const btn = `px-4 py-2 rounded-lg shadow-lg shadow-slate-700/30 text-lg font-bold
                  bg-gradient-to-br from-slate-600 to-slate-400 text-slate-100
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
@@ -60,9 +57,9 @@ export default function Quizz(){
     ))
 
     return(
-        <main className={`${flex} ${container}`}>
-            <section className={`${flex} ${section1}`}>
-                <section className={`${flex} ${section2}`}>
+        <main className={`${flex} items-center p-4 `}>
+            <section className={`${flex} items-center  w-11/12`}>
+                <section className={`${flex} gap-5 w-full`}>
                     {questionsArr}
                 </section>
                 <section className="mt-10 flex items-center justify-center  w-full">
