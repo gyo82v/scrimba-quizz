@@ -49,10 +49,13 @@ export default function Question({question, correct_answer, incorrect_answers, i
         if (showResults) {
             if (a === decodedCorrect && selectedAnswer !== decodedCorrect) {
               // correct answer that user missed -> green
-              conditional = "from-green-300 to-green-200"
+              conditional = "from-lime-300 to-lime-200"
             } else if (isSelected && a !== decodedCorrect) {
               // selected but wrong -> keep red-ish (show user their wrong pick)
               conditional = "from-rose-300 to-rose-200"
+            } else if(isLocked && a === decodedCorrect){
+              //selected and correct
+              conditional = "from-lime-300 to-lime-200"
             } else {
               // otherwise remain neutral
               conditional = "from-slate-300 to-slate-200"
