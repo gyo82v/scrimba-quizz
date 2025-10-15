@@ -1,5 +1,6 @@
 import {useState} from "react"
 import {useLoaderData, useRevalidator} from "react-router-dom"
+import Confetti from "react-Confetti"
 import he from "he"
 import Question from "../components/Question"
 
@@ -58,6 +59,7 @@ export default function Quizz(){
 
     return(
         <main className={`${flex} items-center p-4 `}>
+            {score == 5 && <Confetti />}
             <section className={`${flex} items-center  w-11/12`}>
                 <section className={`${flex} gap-5 w-full`}>
                     {questionsArr}
