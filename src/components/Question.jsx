@@ -63,16 +63,16 @@ export default function Question({question, correct_answer, incorrect_answers, i
           }
 
         return(
-            <button 
-          key={`${a}-${i}`} 
-          className={`${btn} ${conditional}`} 
-          disabled={isLocked || showResults}
-          aria-disabled={isLocked || showResults}
-          aria-pressed={selectedAnswer === a}
-          onClick={() => handleSelect(a)}
-        >
-          {a}
-        </button>
+          <button 
+            key={`${a}-${i}`} 
+            className={`${btn} ${conditional}`} 
+            disabled={isLocked || showResults}
+            aria-disabled={isLocked || showResults}
+            aria-pressed={selectedAnswer === a}
+            onClick={() => handleSelect(a)}
+          >
+            {a}
+          </button>
         )
         
    
