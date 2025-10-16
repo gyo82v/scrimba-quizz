@@ -43,7 +43,6 @@ export default function Quizz(){
         }
         setShowResults(true)
         setScore(score)
-        console.log(`Score: ${score}/${questions.length}`)
     }
 
     const handleNewGame = async () => {
@@ -60,8 +59,8 @@ export default function Quizz(){
     return(
         <main className={`${flex} items-center p-4 `}>
             {score == 5 && <Confetti />}
-            <section className={`${flex} items-center  w-11/12`}>
-                <section className={`${flex} gap-5 w-full`}>
+            <section className={`${flex} items-center w-11/12 xl:w-8/12`}>
+                <section className={`${flex} gap-5 w-full xl:gap-10 xl:mt-4`}>
                     {questionsArr}
                 </section>
                 <section className="mt-10 flex items-center justify-center  w-full">

@@ -3,10 +3,9 @@ import he from "he"
 
 export default function Question({question, correct_answer, incorrect_answers, index, onSelect, showResults}){
     const container = `text-slate-600 w-full flex flex-col gap-2 shadow-lg bg-slate-100 
-                       p-3`
+                       p-3 xl:p-6`
     const btn = `flex-1 bg-gradient-to-br 
-                 py-1 px-4 rounded-lg shadow-lg shadow-slate-700/30 
-                 font-semibold 
+                 py-1 px-4 rounded-lg shadow-lg shadow-slate-700/30 font-semibold 
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
                  hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-200 hover:to-slate-300
                  disabled:pointer-events-none`
@@ -76,12 +75,11 @@ export default function Question({question, correct_answer, incorrect_answers, i
           </button>
         )
         
-   
 })
 
     return(
         <section className={container}>
-            <h1 className="font-bold text-lg">{decodedQuestion}</h1>
+            <h1 className="font-bold text-lg xl:text-xl xl:mb-3">{decodedQuestion}</h1>
             <section className="flex flex-wrap gap-3 w-full">
                 {answerArray}
             </section>
