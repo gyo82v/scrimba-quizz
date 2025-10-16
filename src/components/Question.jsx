@@ -8,7 +8,8 @@ export default function Question({question, correct_answer, incorrect_answers, i
                  py-1 px-4 rounded-lg shadow-lg shadow-slate-700/30 
                  font-semibold 
                  transition-transform transition-colors transition-shadow duration-300 ease-in-out 
-                 hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-200 hover:to-slate-300 `
+                 hover:scale-110 active:scale-95 hover:shadow-xl hover:from-slate-200 hover:to-slate-300
+                 disabled:pointer-events-none`
         
     const decodedCorrect = useMemo(() => he.decode(correct_answer), [correct_answer])
     const decodedQuestion = useMemo(() => he.decode(question), [question])
