@@ -1,6 +1,7 @@
 import {RouterProvider, Route, createBrowserRouter, createRoutesFromElements} from "react-router-dom"
 import Home from "./pages/Home"
-import Quizz, {loader as questionsLoader} from "./pages/Quizz"
+import Quizz from "./pages/Quizz"
+import { quizzLoader } from "./loaders/quizz.loader"
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
   const router = createBrowserRouter(createRoutesFromElements(
     <>
       <Route path="/"  element={<Home/>} />
-      <Route path="quizz" element={<Quizz />} loader={questionsLoader} />
+      <Route path="quizz" element={<Quizz />} loader={quizzLoader} />
     </>
   ))
  
