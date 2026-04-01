@@ -12,7 +12,7 @@ export default function Home() {
           </p>
 
           <h1 className="mt-3 text-4xl font-bold text-slate-700 sm:text-5xl md:text-6xl">
-            Quizzical
+            Quiz Rush
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-slate-600 md:text-lg">
@@ -31,29 +31,3 @@ export default function Home() {
     </main>
   )
 }
-
-
-/*
-import {Link} from "react-router-dom"
-import {linkStyle} from "../styles/ui"
-import {transitionBase, focusEffects} from "../styles/patterns"
-
-export default function Home(){
-    return(
-        <main className="text-slate-600 flex flex-col items-center mt-30 min-h-screen">
-            <section className="flex flex-col items-center">
-                <h1 className="font-bold text-4xl mb-3">Quizzical</h1>
-                <p className="font-semibold text-slate-600">
-                    Can you nail five correct answers? Let’s find out!
-                </p>
-                <Link 
-                  className={`${linkStyle} ${transitionBase} ${focusEffects} mt-8`} 
-                  to="quizz"
-                >Start Quizz
-                </Link>
-            </section>
-        </main>
-    )
-}
-
-*/
