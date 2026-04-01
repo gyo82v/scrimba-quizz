@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {useLoaderData, useRevalidator} from "react-router-dom"
-import Confetti from "react-Confetti"
+import Confetti from "react-confetti"
 import he from "he"
 import Question from "../components/Question"
 
